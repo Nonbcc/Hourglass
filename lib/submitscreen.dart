@@ -11,7 +11,7 @@ class SubmitScreen extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           child: Column(
-            children: [
+            children: const [
               SizedBox(
                 height: 200,
               ),

@@ -17,7 +17,7 @@ class _DisplayTimerState extends State<DisplayTimer> {
 
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 60,
         ),
         Text(
@@ -29,30 +29,30 @@ class _DisplayTimerState extends State<DisplayTimer> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width / 4.2,
               height: 170,
               child: Center(
                 child: Provider.of<TimerService>(context, listen: false)
-                    .changeminutesunit(),
+                    .changeMinutesUnit(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
               ":",
               style: textStyle(60, Colors.brown, FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width / 4.2,
               height: 170,
               child: Center(
                 child: Provider.of<TimerService>(context, listen: false)
-                    .changesecondsunit(),
+                    .changeSecondsUnit(),
               ),
             ),
           ],

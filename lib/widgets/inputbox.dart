@@ -13,9 +13,9 @@ class InputBox extends StatefulWidget {
 class _InputBoxState extends State<InputBox> {
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
     backgroundColor: Colors.brown,
-    primary: Colors.white,
-    minimumSize: Size(89, 44),
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
+    foregroundColor: Colors.white,
+    minimumSize: const Size(89, 44),
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(100)),
     ),
@@ -30,14 +30,14 @@ class _InputBoxState extends State<InputBox> {
         width: 323,
         height: 293,
         decoration: BoxDecoration(
-          color: Color(0xFFEFD3C2),
+          color: const Color(0xFFEFD3C2),
           borderRadius: BorderRadius.circular(60),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 4,
               blurRadius: 4,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             )
           ],
         ),
@@ -49,7 +49,7 @@ class _InputBoxState extends State<InputBox> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text(
+                const Text(
                   "Session Duration",
                   style: TextStyle(
                     fontSize: 20,
@@ -57,7 +57,7 @@ class _InputBoxState extends State<InputBox> {
                   ),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     constraints: BoxConstraints(
                       maxHeight: 30,
                       maxWidth: 30,
@@ -67,17 +67,17 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData(),
+                          .submitData,
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text(
+                const Text(
                   "Session",
                   style: TextStyle(
                     fontSize: 20,
@@ -85,7 +85,7 @@ class _InputBoxState extends State<InputBox> {
                   ),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     constraints: BoxConstraints(
                       maxHeight: 30,
                       maxWidth: 30,
@@ -95,17 +95,17 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData(),
+                          .submitData,
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text(
+                const Text(
                   "Break time",
                   style: TextStyle(
                     fontSize: 20,
@@ -113,7 +113,7 @@ class _InputBoxState extends State<InputBox> {
                   ),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     constraints: BoxConstraints(
                       maxHeight: 30,
                       maxWidth: 30,
@@ -123,11 +123,11 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData(),
+                          .submitData,
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -138,10 +138,10 @@ class _InputBoxState extends State<InputBox> {
                       .submitData();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
-                    return HourglassScreen();
+                    return const HourglassScreen();
                   }));
                 },
-                child: Text('Confirm'),
+                child: const Text('Confirm'),
               ),
             )
           ],

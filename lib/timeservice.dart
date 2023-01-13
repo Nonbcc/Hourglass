@@ -8,9 +8,9 @@ class TimerService extends ChangeNotifier {
   final sessionNumberController = TextEditingController();
   final breakTimeController = TextEditingController();
 
-  int enteredsessionDuration = 0;
-  int enteredsessionNumberDuration = 0;
-  int enteredbreakTime = 0;
+  int enteredSessionDuration = 0;
+  int enteredSessionNumberDuration = 0;
+  int enteredBreakTime = 0;
 
   Timer? timer;
   int currentDuration = 0;
@@ -22,31 +22,38 @@ class TimerService extends ChangeNotifier {
   String twoDigits(int n) => n.round().toString().padLeft(2, '0');
 
   void submitData() {
-    enteredsessionDuration = int.parse(sessionDurationController.text);
-    enteredsessionNumberDuration = int.parse(sessionNumberController.text);
-    enteredbreakTime = int.parse(breakTimeController.text);
+    enteredSessionDuration = int.parse(sessionDurationController.text);
+    enteredSessionNumberDuration = int.parse(sessionNumberController.text);
+    enteredBreakTime = int.parse(breakTimeController.text);
 
-    if (enteredsessionDuration <= 0 ||
-        enteredsessionNumberDuration <= 0 ||
-        enteredbreakTime <= 0) {
+    if (enteredSessionDuration <= 0 ||
+        enteredSessionNumberDuration <= 0 ||
+        enteredBreakTime <= 0) {
       print('Error');
     }
 
-    currentDuration = enteredsessionDuration;
-    start();
+    if (currentState == 'Cancel') {
+      iteration = 1;
+      currentState = 'Focus';
+      currentDuration = 0;
+      currentDuration = enteredSessionDuration;
+      start();
+    } else {
+      currentDuration = enteredSessionDuration;
+      start();
+    }
 
-    print(enteredsessionDuration);
-    print(enteredsessionNumberDuration);
-    print(enteredbreakTime);
+    print(enteredSessionDuration);
+    print(enteredSessionNumberDuration);
+    print(enteredBreakTime);
+    notifyListeners();
   }
 
   void start() {
     timerPlaying = true;
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentDuration == 0) {
         handleNextIteration();
-      } else if (iteration == enteredsessionNumberDuration + 1) {
-        stop();
       } else {
         currentDuration--;
         notifyListeners();
@@ -60,21 +67,31 @@ class TimerService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void cancelSession() {}
+  void cancelSession() {
+    timer!.cancel();
+    timerPlaying = false;
+    currentState = 'Cancel';
+    notifyListeners();
+  }
 
   void handleNextIteration() {
     if (currentState == "Focus") {
-      currentState = "Break Time";
-      currentDuration = enteredbreakTime;
-      iteration++;
+      if (iteration < enteredSessionNumberDuration) {
+        currentState = "Break Time";
+        currentDuration = enteredBreakTime;
+        iteration++;
+      } else if (iteration >= enteredSessionNumberDuration) {
+        print('eiei');
+        stop();
+      }
     } else if (currentState == "Break Time") {
       currentState = "Focus";
-      currentDuration = enteredsessionDuration;
+      currentDuration = enteredSessionDuration;
     }
     notifyListeners();
   }
 
-  Widget? changesecondsunit() {
+  Widget? changeSecondsUnit() {
     seconds = currentDuration % 60;
 
     if (seconds == 0) {
@@ -90,7 +107,7 @@ class TimerService extends ChangeNotifier {
     }
   }
 
-  Widget? changeminutesunit() {
+  Widget? changeMinutesUnit() {
     minutes = currentDuration % 3600;
 
     if (minutes == 0) {

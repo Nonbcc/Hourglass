@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/hourglassscreen.dart';
 import 'package:hrg/submitscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:hrg/timeservice.dart';
@@ -7,7 +6,7 @@ import 'package:hrg/timeservice.dart';
 void main() {
   runApp(ChangeNotifierProvider<TimerService>(
     create: (_) => TimerService(),
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -17,6 +16,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SubmitScreen());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SubmitScreen(),
+    );
   }
 }

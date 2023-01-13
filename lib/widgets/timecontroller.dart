@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:hrg/submitscreen.dart';
 import 'package:hrg/timeservice.dart';
 import 'package:provider/provider.dart';
 import 'package:hrg/utils.dart';
@@ -17,29 +16,55 @@ class _TimeControllerState extends State<TimeController> {
   Widget build(BuildContext context) {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       backgroundColor: Colors.redAccent,
-      primary: Colors.white,
-      minimumSize: Size(89, 44),
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      foregroundColor: Colors.white,
+      minimumSize: const Size(89, 44),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(100)),
       ),
     );
 
-    final provider = Provider.of<TimerService>(context);
-
     return Center(
-      child: Container(
-        child: TextButton(
-          style: flatButtonStyle,
-          onPressed: () {
-            // if (provider.timerPlaying) {
-            //   print('eiei');
-            // } else {
-            //   Provider.of<TimerService>(context, listen: false).start();
-            // }
-          },
-          child: Text('Cancel'),
-        ),
+      child: TextButton(
+        style: flatButtonStyle,
+        onPressed: () {
+          Provider.of<TimerService>(context, listen: false).stop();
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              alignment: Alignment.center,
+              title: Text(
+                'Do you want to cancel your session?',
+                style: textStyle(22),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Provider.of<TimerService>(context, listen: false)
+                          .cancelSession();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const SubmitScreen();
+                      }));
+                    },
+                    child: Text(
+                      'Yes',
+                      style: textStyle(16),
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Provider.of<TimerService>(context, listen: false).start();
+                    },
+                    child: Text(
+                      'No',
+                      style: textStyle(16),
+                    )),
+              ],
+            ),
+          );
+        },
+        child: const Text('Cancel'),
       ),
     );
   }
