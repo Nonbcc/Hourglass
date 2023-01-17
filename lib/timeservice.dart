@@ -7,13 +7,13 @@ import 'package:hrg/utils.dart';
 enum TimerState { focus, cancel, breakTime, end, pause }
 
 class TimerService extends ChangeNotifier {
-  final sessionDurationController = TextEditingController();
-  final sessionNumberController = TextEditingController();
-  final breakTimeController = TextEditingController();
+  final sessionController = TextEditingController();
+  final sessionNumController = TextEditingController();
+  final breakController = TextEditingController();
 
-  int enteredSessionDuration = 0;
-  int enteredSessionNumberDuration = 0;
-  int enteredBreakTime = 0;
+  int inputSession = 0;
+  int inputSessionNum = 0;
+  int inputBreak = 0;
 
   Timer? timer;
   int sumTime = 0;
@@ -26,29 +26,27 @@ class TimerService extends ChangeNotifier {
   String twoDigits(int n) => n.round().toString().padLeft(2, '0');
 
   void submitData(BuildContext context) {
-    enteredSessionDuration = int.parse(sessionDurationController.text);
-    enteredSessionNumberDuration = int.parse(sessionNumberController.text);
-    enteredBreakTime = int.parse(breakTimeController.text);
+    inputSession = int.parse(sessionController.text);
+    inputSessionNum = int.parse(sessionNumController.text);
+    inputBreak = int.parse(breakController.text);
 
-    if (enteredSessionDuration <= 0 ||
-        enteredSessionNumberDuration <= 0 ||
-        enteredBreakTime <= 0) {}
+    if (inputSession <= 0 || inputSessionNum <= 0 || inputBreak <= 0) {}
 
     if (currentState == TimerState.cancel || currentState == TimerState.end) {
       iteration = 1;
       sumTime = 0;
       currentState = TimerState.focus;
       currentDuration = 0;
-      currentDuration = enteredSessionDuration;
+      currentDuration = inputSession;
       start(context);
     } else {
-      currentDuration = enteredSessionDuration;
+      currentDuration = inputSession;
       start(context);
     }
 
-    print(enteredSessionDuration);
-    print(enteredSessionNumberDuration);
-    print(enteredBreakTime);
+    print(inputSession);
+    print(inputSessionNum);
+    print(inputBreak);
     notifyListeners();
   }
 
@@ -59,6 +57,7 @@ class TimerService extends ChangeNotifier {
         handleNextIteration(context);
       } else {
         currentDuration--;
+        print("dura = $sumTime");
         notifyListeners();
       }
     });
@@ -66,12 +65,12 @@ class TimerService extends ChangeNotifier {
 
   void pause() {
     if (currentState == TimerState.focus) {
-      sumTime += (enteredSessionDuration - currentDuration);
+      sumTime += (inputSession - currentDuration);
     }
     print('sum = $sumTime');
     print(currentState);
     timer!.cancel();
-    timerPlaying = false;
+    // timerPlaying = false;
     notifyListeners();
   }
 
@@ -89,16 +88,23 @@ class TimerService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void skipBreak(BuildContext context) {
+    timer!.cancel();
+    currentState = TimerState.focus;
+    currentDuration = inputSession;
+    notifyListeners();
+  }
+
   void handleNextIteration(BuildContext context) {
     if (currentState == TimerState.focus) {
-      if (iteration < enteredSessionNumberDuration) {
-        sumTime += (enteredSessionDuration - currentDuration);
+      if (iteration < inputSessionNum) {
+        sumTime += (inputSession - currentDuration);
         print('sum = $sumTime');
         currentState = TimerState.breakTime;
-        currentDuration = enteredBreakTime;
+        currentDuration = inputBreak;
         iteration++;
-      } else if (iteration >= enteredSessionNumberDuration) {
-        sumTime += (enteredSessionDuration - currentDuration);
+      } else if (iteration >= inputSessionNum) {
+        sumTime += (inputSession - currentDuration);
         print('sum = $sumTime');
         print('eiei');
         stop();
@@ -106,7 +112,7 @@ class TimerService extends ChangeNotifier {
       }
     } else if (currentState == TimerState.breakTime) {
       currentState = TimerState.focus;
-      currentDuration = enteredSessionDuration;
+      currentDuration = inputSession;
     }
     notifyListeners();
   }

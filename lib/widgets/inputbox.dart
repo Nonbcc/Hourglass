@@ -63,7 +63,7 @@ class _InputBoxState extends State<InputBox> {
                       maxWidth: 30,
                     ),
                   ),
-                  controller: provider.sessionDurationController,
+                  controller: provider.sessionController,
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
@@ -91,7 +91,7 @@ class _InputBoxState extends State<InputBox> {
                       maxWidth: 30,
                     ),
                   ),
-                  controller: provider.sessionNumberController,
+                  controller: provider.sessionNumController,
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
@@ -119,7 +119,7 @@ class _InputBoxState extends State<InputBox> {
                       maxWidth: 30,
                     ),
                   ),
-                  controller: provider.breakTimeController,
+                  controller: provider.breakController,
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
