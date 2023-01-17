@@ -67,7 +67,7 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData,
+                          .submitData(context),
                 )
               ],
             ),
@@ -95,7 +95,7 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData,
+                          .submitData(context),
                 )
               ],
             ),
@@ -123,7 +123,7 @@ class _InputBoxState extends State<InputBox> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) =>
                       Provider.of<TimerService>(context, listen: false)
-                          .submitData,
+                          .submitData(context),
                 )
               ],
             ),
@@ -135,7 +135,7 @@ class _InputBoxState extends State<InputBox> {
                 style: flatButtonStyle,
                 onPressed: () {
                   Provider.of<TimerService>(context, listen: false)
-                      .submitData();
+                      .submitData(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
                     return const HourglassScreen();

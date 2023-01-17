@@ -21,7 +21,8 @@ class _DisplayTimerState extends State<DisplayTimer> {
           height: 60,
         ),
         Text(
-          provider.currentState == 'Focus'
+          provider.currentState == TimerState.focus ||
+                  provider.currentState == TimerState.end
               ? "${provider.iteration} Iteration"
               : "Break Time",
           style: textStyle(25, Colors.red, FontWeight.w700),
@@ -33,8 +34,11 @@ class _DisplayTimerState extends State<DisplayTimer> {
               width: MediaQuery.of(context).size.width / 4.2,
               height: 170,
               child: Center(
-                child: Provider.of<TimerService>(context, listen: false)
-                    .changeMinutesUnit(),
+                child: Text(
+                  Provider.of<TimerService>(context, listen: false)
+                      .changeMinutesUnit(provider.currentDuration),
+                  style: textStyle(60, Colors.brown, FontWeight.bold),
+                ),
               ),
             ),
             const SizedBox(
@@ -51,8 +55,11 @@ class _DisplayTimerState extends State<DisplayTimer> {
               width: MediaQuery.of(context).size.width / 4.2,
               height: 170,
               child: Center(
-                child: Provider.of<TimerService>(context, listen: false)
-                    .changeSecondsUnit(),
+                child: Text(
+                  Provider.of<TimerService>(context, listen: false)
+                      .changeSecondsUnit(provider.currentDuration),
+                  style: textStyle(60, Colors.brown, FontWeight.bold),
+                ),
               ),
             ),
           ],
