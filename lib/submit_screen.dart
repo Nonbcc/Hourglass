@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/widgets/inputbox.dart';
+import 'package:hrg/widgets/input_box.dart';
 
 class SubmitScreen extends StatelessWidget {
   const SubmitScreen({super.key});

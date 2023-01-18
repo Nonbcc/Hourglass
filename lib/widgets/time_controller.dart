@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/submit_screen.dart';
 import 'package:hrg/time_service.dart';
 import 'package:hrg/widgets/cancel_popup.dart';
 import 'package:hrg/widgets/skip_break_popup.dart';

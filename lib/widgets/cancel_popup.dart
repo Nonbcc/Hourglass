@@ -39,7 +39,6 @@ class CancelPopup {
                 provider.sumTime -=
                     provider.inputSession - provider.currentDuration;
               }
-
               Navigator.of(ctx).pop();
               Provider.of<TimerService>(context, listen: false).start(context);
             },

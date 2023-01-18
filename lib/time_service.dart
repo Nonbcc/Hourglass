@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hrg/submit_screen.dart';
-import 'package:hrg/utils.dart';
 import 'package:hrg/widgets/show_result_popup.dart';
 
 enum TimerState { focus, cancel, breakTime, end, pause }

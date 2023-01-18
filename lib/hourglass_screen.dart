@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/widgets/dialogbox.dart';
-import 'package:hrg/widgets/displaytimer.dart';
-import 'package:hrg/widgets/timecontroller.dart';
+import 'package:hrg/widgets/dialog_box.dart';
+import 'package:hrg/widgets/display_timer.dart';
+import 'package:hrg/widgets/time_controller.dart';
 
 class HourglassScreen extends StatelessWidget {
   const HourglassScreen({super.key});
