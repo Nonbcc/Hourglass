@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hrg/submit_screen.dart';
 import 'package:hrg/utils.dart';
+import 'package:hrg/widgets/show_result_popup.dart';
 
 enum TimerState { focus, cancel, breakTime, end, pause }
 
@@ -24,6 +25,7 @@ class TimerService extends ChangeNotifier {
   int iteration = 1;
   TimerState currentState = TimerState.focus;
   String twoDigits(int n) => n.round().toString().padLeft(2, '0');
+  ShowResultPopup showResultPopup = ShowResultPopup();
 
   void submitData(BuildContext context) {
     inputSession = int.parse(sessionController.text);
@@ -108,71 +110,13 @@ class TimerService extends ChangeNotifier {
         print('sum = $sumTime');
         print('eiei');
         stop();
-        showResult(context);
+        showResultPopup.showResultPopup(context);
       }
     } else if (currentState == TimerState.breakTime) {
       currentState = TimerState.focus;
       currentDuration = inputSession;
     }
     notifyListeners();
-  }
-
-  void showResult(BuildContext context) {
-    String sec = changeSecondsUnit(sumTime);
-    String min = changeMinutesUnit(sumTime);
-    String hr = changeHoursUnit(sumTime);
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Reading result'),
-        content: Row(
-          children: [
-            Text(hr),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              'h',
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(min),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              'm',
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(sec),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              's',
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return const SubmitScreen();
-              }));
-            },
-            child: Text(
-              'Ok',
-              style: textStyle(16),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   String changeSecondsUnit(int time) {
