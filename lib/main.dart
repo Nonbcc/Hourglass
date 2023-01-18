@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/submitscreen.dart';
+import 'package:hrg/submit_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:hrg/timeservice.dart';
+import 'package:hrg/time_service.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<TimerService>(

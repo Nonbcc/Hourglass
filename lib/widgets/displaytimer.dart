@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/timeservice.dart';
+import 'package:hrg/time_service.dart';
 import 'package:hrg/utils.dart';
 import 'package:provider/provider.dart';
 

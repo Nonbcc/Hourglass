@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/hourglassscreen.dart';
-import 'package:hrg/timeservice.dart';
+import 'package:hrg/hourglass_screen.dart';
+import 'package:hrg/time_service.dart';
 import 'package:provider/provider.dart';
 
 class InputBox extends StatefulWidget {

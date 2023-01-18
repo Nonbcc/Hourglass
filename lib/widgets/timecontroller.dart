@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hrg/submitscreen.dart';
-import 'package:hrg/timeservice.dart';
-import 'package:hrg/widgets/cancel_dialog.dart';
-import 'package:hrg/widgets/skip_break_dialog.dart';
+import 'package:hrg/submit_screen.dart';
+import 'package:hrg/time_service.dart';
+import 'package:hrg/widgets/cancel_popup.dart';
+import 'package:hrg/widgets/skip_break_popup.dart';
 import 'package:provider/provider.dart';
 
 class TimeController extends StatefulWidget {
@@ -35,8 +35,8 @@ class _TimeControllerState extends State<TimeController> {
     );
 
     final provider = Provider.of<TimerService>(context);
-    SkipBreakDialog skipBreakDialog = SkipBreakDialog();
-    CancelDialog cancelDialog = CancelDialog();
+    SkipBreakPopup skipBreakPopup = SkipBreakPopup();
+    CancelPopup cancelPopup = CancelPopup();
 
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       if (provider.currentState == TimerState.breakTime) ...[
@@ -44,7 +44,7 @@ class _TimeControllerState extends State<TimeController> {
           style: flatButtonStyle2,
           onPressed: () {
             Provider.of<TimerService>(context, listen: false).pause();
-            skipBreakDialog.skipBreakDialog(context);
+            skipBreakPopup.skipBreakPopup(context);
           },
           child: const Text('Skip Break'),
         ),
@@ -55,7 +55,7 @@ class _TimeControllerState extends State<TimeController> {
           style: flatButtonStyle,
           onPressed: () {
             Provider.of<TimerService>(context, listen: false).pause();
-            cancelDialog.cancelDialog(context);
+            cancelPopup.cancelPopup(context);
           },
           child: const Text('Cancel'),
         ),
@@ -64,7 +64,7 @@ class _TimeControllerState extends State<TimeController> {
           style: flatButtonStyle,
           onPressed: () {
             Provider.of<TimerService>(context, listen: false).pause();
-            cancelDialog.cancelDialog(context);
+            cancelPopup.cancelPopup(context);
           },
           child: const Text('Cancel'),
         ),
